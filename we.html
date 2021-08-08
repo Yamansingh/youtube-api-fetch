@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es6</title>
+</head>
+<body>
+   <input type="text" name="" id="querry">
+   <button onclick="getId()">search</button>
+   <div id="vedeoId"></div>
+</body>
+</html>
+<script>
+  //  https://youtube.googleapis.com/youtube/v3/search?key=[AIzaSyBAqStSE6pmYSjXOhAdw_aeAujUsckuA4c]
+   let parent = document.getElementById("vedeoId")
+    async function getId(){
+           let q = document.getElementById("querry").value
+       let res =await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${q}&key=AIzaSyDCfzsVeA8Eu6Jjx2FYikdgaj3ejw1n8qc&maxResult=20`)
+   
+        let data = await res.json()
+        console.log(data);
+        let {items}  = data
+        items.forEach(({id:{videoId}}) => {
+            console.log(videoId)
+        
+        let div = document.createElement("div")
+        div.innerHTML = `<iframe width="853" height="480" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+        parent.append(div)
+        });
+    }
+      //countries_data()
+</script>
